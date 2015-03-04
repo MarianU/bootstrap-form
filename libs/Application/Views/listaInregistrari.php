@@ -1,4 +1,4 @@
-<?php if(!empty($this->records)) : ?>
+<?php if((bool)($this->records)) : ?>
 <div class="panel panel-default">
 	<div class="panel-heading">Guests</div>
 	<div class="panel-body">
