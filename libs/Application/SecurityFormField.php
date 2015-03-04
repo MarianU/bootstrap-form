@@ -4,15 +4,13 @@ namespace Application;
 
 class SecurityFormField extends FormField
 {
-	protected $_form = null;
 	private $_persistentName = null;
 
 	public function __construct($name, $form)
 	{
-		$this->name = $name;
+		parent::__construct($name, $form);
 		$this->_persistentName = $form->name . '_' . $name;
 		$this->type = 'hidden';
-		$this->_form = $form;
 		$this->previousValue = Persistent::get($this->_persistentName);
 	}
 

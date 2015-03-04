@@ -3,14 +3,17 @@
 namespace Application\Controllers;
 
 use Application\Controller,
+	Application\Persistent,
 	Application\Form,
 	Application\FormField,
 	Application\SecurityFormField,
+	Application\CaptchaFormField,
 	Application\Models\Guest;
 
 class Index extends Controller
 {
 	private $_form = null;
+
 
 	public function __construct($view)
 	{
@@ -48,6 +51,9 @@ class Index extends Controller
 
 		$security = new SecurityFormField('secure', $this->_form);
 		$this->_form->addField($security);
+
+		$captcha = new CaptchaFormField('g-recaptcha-response', $this->_form);
+		$this->_form->addField($captcha);
 	}
 
 	public function indexAction()
@@ -62,7 +68,7 @@ class Index extends Controller
 			if($this->_form->isValid($_POST))
 			{
 				$formData = $this->_form->getData();
-				unset($formData['secure']);
+				unset($formData['secure'], $formData['g-recaptcha-response']);
 				$guest = Guest::create($formData);
 				$guest->save();
 
@@ -75,7 +81,7 @@ class Index extends Controller
 
 		$this->_view->form = $this->_form;
 
-		$this->_view->setRenderFile('formularContact.php');
+		$this->_view->setRenderFile('guestForm.php');
 
 		$this->listAction();
 

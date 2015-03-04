@@ -12,6 +12,7 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="script.js"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</header>
 	<body>
 		<div id="main-container">
@@ -27,7 +28,9 @@
 					<form name="contact" action="" method="post" class="bs-example bs-example-form">
 
 		<?php foreach($this->form as $formField) : ?>
-			<?php if($formField->type == 'hidden') :?>
+			<?php if($formField->type == 'render') :?>
+				<?php echo $formField->render(); ?>
+			<?php elseif($formField->type == 'hidden') :?>
 						<input name="<?php echo $formField->name ?>" type="hidden" value="<?php echo $formField->getValue()?>">
 			<?php else: ?>
 						<div class="input-group <?php echo ($this->form->isSubmited() && !$formField->isValid())? 'has-error' : ''?>">
@@ -46,7 +49,7 @@
 						<input type="submit" value="Send" class="btn btn-default">
 					</form>
 
-		<?php include 'listaInregistrari.php'; ?>
+		<?php include 'guestsList.php'; ?>
 				</div>
 			</div>
 		</div>
