@@ -27,7 +27,7 @@ class CaptchaFormField extends FormField
 
 		Persistent::set($this->_captchaPersistentName, Persistent::get($this->_captchaPersistentName)+1);
 
-		if($this->_currentInput < $this->_allowedInputs)
+		if($this->_currentInput <= $this->_allowedInputs)
 		{
 			$this->_valid = true;
 			return $this->_valid;
