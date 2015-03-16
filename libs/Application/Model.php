@@ -49,7 +49,7 @@ class Model
 		else
 			$sql .= ' * ';
 
-		$sql .= ' from `' . static::$_tableName . '`';
+		$sql .= ' from ' . static::$_tableName . '';
 
 		if(isset($parameters['where']))
 			$sql .= ' where ' . $parameters['where'];
