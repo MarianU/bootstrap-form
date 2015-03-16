@@ -14,7 +14,12 @@ class Model
 
 	public static function connect($connection)
 	{
-		self::$_databaseLink = new \mysqli($connection['host'], $connection['username'], $connection['password'], $connection['database']);
+// 		self::$_databaseLink = new \mysqli($connection['host'], $connection['username'], $connection['password'], $connection['database']);
+		$connectionString = array_reduce(array_keys($connection), function($carry, $item) use ($connection) {
+			$carry += $item . '=' . $connection[$item] . ' ';
+			return $carry;
+		});
+		self::$_databaseLink = pg_connect($connectionString);
 	}
 
 	public static function find($parameters = array())
@@ -25,9 +30,8 @@ class Model
 		if($result)
 		{
 			$fetchedModels = array();
-			$className = \get_called_class();
 
-			while($row = $result->fetch_assoc())
+			while($row = pg_fetch_assoc($result))
 			{
 				$fetchedModels[] = static::create($row);
 			}
@@ -86,12 +90,12 @@ class Model
 
 	private static function executeQuery($sql)
 	{
-		return self::$_databaseLink->query($sql);
+		return pg_query(self::$_databaseLink, $sql);
 	}
 
 	private static function escape($value)
 	{
-		return self::$_databaseLink->escape_string($value);
+		return pg_escape_string(self::$_databaseLink, $value);
 	}
 
 	protected function setData($data)

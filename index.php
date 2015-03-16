@@ -15,10 +15,11 @@ try
 	Application::setupLoader();
 
 	Application\Model::connect(array(
-		'host' => 'localhost',
-		'username' => 'test',
+		'host' => 'ec2-184-72-238-68.compute-1.amazonaws.com',
+		'port' => '5432',
+		'user' => 'eopnkqfceewvii',
 		'password' => 'test1234',
-		'database' => 'test',
+		'dbname' => 'd28ncdd5aodkib',
 	));
 
 	Application\Persistent::init();
