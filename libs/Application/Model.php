@@ -14,11 +14,11 @@ class Model
 
 	public static function connect($connection)
 	{
-// 		self::$_databaseLink = new \mysqli($connection['host'], $connection['username'], $connection['password'], $connection['database']);
 		$connectionString = array_reduce(array_keys($connection), function($carry, $item) use ($connection) {
-			$carry += $item . '=' . $connection[$item] . ' ';
+			$carry .= $item . '=' . $connection[$item] . ' ';
 			return $carry;
-		});
+		}, '');
+
 		self::$_databaseLink = pg_connect($connectionString);
 	}
 

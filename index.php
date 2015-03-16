@@ -18,7 +18,7 @@ try
 		'host' => 'ec2-184-72-238-68.compute-1.amazonaws.com',
 		'port' => '5432',
 		'user' => 'eopnkqfceewvii',
-		'password' => 'test1234',
+		'password' => 'IAZkM95LL_Tk7_jOV1-w6Zvz1B',
 		'dbname' => 'd28ncdd5aodkib',
 	));
 
