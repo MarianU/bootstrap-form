@@ -75,14 +75,14 @@ class Model
 	private function createInsertQuery()
 	{
 		$columns = array();
-		$sql = 'insert into ' . "`" . static::$_tableName . "` ";
+		$sql = 'insert into ' . static::$_tableName;
 
 		foreach($this->_modelData as $column => $value)
 		{
 			if($column == static::$_columnId)
 				continue;
 
-			$columns[] = "`$column`";
+			$columns[] = $column;
 			$values[] = "'" . self::escape($value) . "'";
 		}
 		$sql .= '(' . join(',', $columns) . ')';
@@ -94,14 +94,14 @@ class Model
 	private function createUpdateQuery()
 	{
 		$columns = array();
-		$sql = 'update' . "`" . static::$_tableName . "` set ";
+		$sql = 'update' . static::$_tableName . " set ";
 
 		foreach($this->_modelData as $column => $value)
 		{
 			if($column == static::$_columnId)
 				continue;
 
-			$columns[] = "`$column` = '" . self::escape($value) . "'";
+			$columns[] = "$column = '" . self::escape($value) . "'";
 		}
 		$sql .= join(',', $columns);
 
