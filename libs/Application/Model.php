@@ -65,14 +65,36 @@ class Model
 
 	public function save()
 	{
-		$sql = $this->createUpdateQuery();
+		if($this->_newModel)
+			$sql = $this->createInsertQuery();
+		else
+			$sql = $this->createUpdateQuery();
 		return self::executeQuery($sql);
+	}
+
+	private function createInsertQuery()
+	{
+		$columns = array();
+		$sql = 'insert into ' . "`" . static::$_tableName . "` ";
+
+		foreach($this->_modelData as $column => $value)
+		{
+			if($column == static::$_columnId)
+				continue;
+
+			$columns[] = "`$column`";
+			$values[] = "'" . self::escape($value) . "'";
+		}
+		$sql .= '(' . join(',', $columns) . ')';
+		$sql .= ' values (' . join(',', $values) . ')';
+
+		return $sql;
 	}
 
 	private function createUpdateQuery()
 	{
 		$columns = array();
-		$sql = ($this->_newModel ? 'insert into ' : 'update') . "`" . static::$_tableName . "` set ";
+		$sql = 'update' . "`" . static::$_tableName . "` set ";
 
 		foreach($this->_modelData as $column => $value)
 		{
