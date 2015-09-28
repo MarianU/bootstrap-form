@@ -27,7 +27,7 @@ $(function ()
 
 function focusInput()
 {
-	var errorFields = $('.has-error input');
+	var errorFields = $('.has-error input, .has-error textarea, .has-error select');
 	if(errorFields.length > 0)
 	{
 		$(errorFields.get(0)).focus();
